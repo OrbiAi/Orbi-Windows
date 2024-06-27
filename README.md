@@ -1,7 +1,7 @@
 # fakerecall
-My recreation of Windows Recall in Python
-(it's goofy)
-If you see an entry with title `N/A` that probably means it's still generating.
+My recreation of Windows Recall in Python (it's goofy)
+<br><br>
+If you see an entry with title `N/A` that probably means it's still generating.<br>
 All the data is stored in the `data` directory.
 ### How it works
 The script takes a screenshot of the computer's screen every 60 seconds, processes the text on screen, gets a list of running apps and supplies all of that information to the `llama3` model.
