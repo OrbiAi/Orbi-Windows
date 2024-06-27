@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ms="urn:schemas-microsoft-com:xslt" 
+      xmlns:bat="http://schemas.microsoft.com/battery/2012" 
+      xmlns:js="http://microsoft.com/kernel">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="ReportUtcOffset" content="+3:00"/>
+    <title>Activity report</title>
+    <style type="text/css">
+        body {
+            font-family: Segoe UI Light;
+            background-color: #181818;
+            color: #F0F0F0;
+            margin-left: 5.5em;
+        }
+        h1 {
+            color: #11D8E8;
+            font-size: 42pt;
+        }
+        h3 {
+            color: #F0A500;
+            font-size: 18pt;
+        }
+        a {
+            color: #11D8E8
+        }
+        p {
+            font-size: 14pt;
+            margin-bottom: 1em;
+        }
+        .small-text {
+            font-size: 12pt;
+            font-style: italic;
+        }
+        img {
+            margin-top: 1em;
+            border: 1px solid #F0F0F0;
+            max-width: 55%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Activity report</h1>
+    <h3>{{ primarywindow }}</h3>
+    <p>{{ description }}</p>
+    <p class="small-text">{{ date }}</p>
+    <img src="{{ img }}" alt="User screenshot">
+    <p class="small-text">All Windows - {{ allwindows }}</p>
+    <a href="/">Back</a>
+</body>
+</html>
