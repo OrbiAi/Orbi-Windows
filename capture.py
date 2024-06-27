@@ -56,19 +56,20 @@ def genai(text):
     return aresponse
 
 def capturescr():
-    timenow = int(time.time())
-    if not os.path.exists(os.path.join('data', str(timenow))):
-        os.makedirs(os.path.join('data', str(timenow)))
-    screenshot(os.path.join('data', str(timenow)))
+    timenow = time.time()
+    if not os.path.exists(os.path.join('data', str(int(timenow)))):
+        os.makedirs(os.path.join('data', str(int(timenow))))
+    screenshot(os.path.join('data', str(int(timenow))))
     wininfo = getopenwindows()
-    description = genai(gettext(os.path.join('data', str(timenow), 'capture.png')))
+    description = genai(gettext(os.path.join('data', str(int(timenow)), 'capture.png')))
     activity = {
-        'time': timenow,
+        'time': int(timenow),
         'activity': description,
         'focused': wininfo['focused'],
-        'open': wininfo['open']
+        'open': wininfo['open'],
+        'took': round(time.time()-timenow)
     }
-    with open(os.path.join('data', str(timenow), 'activity.json'), 'w') as f:
+    with open(os.path.join('data', str(int(timenow)), 'activity.json'), 'w') as f:
         json.dump(activity, f)
 
     with open('template.html', 'r') as file:
@@ -81,8 +82,9 @@ def capturescr():
         .replace("{{ date }}", str(readabletime))
         .replace("{{ allwindows }}", str(activity['open']))
         .replace("{{ img }}", str('capture.png'))
+        .replace("{{ took }}", str(activity['took']))
     )
-    with open(os.path.join('data', str(timenow), 'activity.html'), 'w') as newfile:
+    with open(os.path.join('data', str(int(timenow)), 'activity.html'), 'w') as newfile:
         newfile.write(templateh)
 
 while True:
