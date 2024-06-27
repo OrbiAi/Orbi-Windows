@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, send_from_directory, abort
+from flask import Flask, render_template, send_from_directory, abort
 import os
 import json
 from datetime import datetime, timezone
@@ -27,74 +27,8 @@ def index():
             primary = "N/A"
 
         folders_data.append((folder, primary))
-
-    html_template = '''
-    <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml" 
-          xmlns:ms="urn:schemas-microsoft-com:xslt" 
-          xmlns:bat="http://schemas.microsoft.com/battery/2012" 
-          xmlns:js="http://microsoft.com/kernel">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="ReportUtcOffset" content="+3:00"/>
-        <title>Activity report</title>
-        <style type="text/css">
-            body {
-                font-family: Segoe UI Light;
-                background-color: #181818;
-                color: #F0F0F0;
-                margin-left: 5.5em;
-            }
-            h1 {
-                color: #11D8E8;
-                font-size: 42pt;
-            }
-            h3 {
-                color: #F0A500;
-                font-size: 18pt;
-            }
-            p {
-                font-size: 14pt;
-                margin-bottom: 1em;
-            }
-            .small-text {
-                font-size: 12pt;
-                font-style: italic;
-            }
-            img {
-                margin-top: 1em;
-                border: 1px solid #F0F0F0;
-                max-width: 55%;
-            }
-            ul {
-                list-style-type: none;
-                padding: 0;
-            }
-            li {
-                margin: 0.5em 0;
-            }
-            a {
-                color: #11D8E8;
-                text-decoration: none;
-                font-size: 18pt;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Activity report</h1>
-        <h3>Available Reports</h3>
-        <ul>
-            {% for folder, primary in folders_data %}
-            <li>
-                <a href="/{{ folder }}/activity.html">{{ folder | to_datetime }} - {{ primary }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </body>
-    </html>
-    '''
     
-    return render_template_string(html_template, folders_data=folders_data)
+    return render_template('homepage.html', folders_data=folders_data)
 
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):
