@@ -72,7 +72,7 @@ def capturescr():
     with open(os.path.join('data', str(int(timenow)), 'activity.json'), 'w') as f:
         json.dump(activity, f)
 
-    with open('template.html', 'r') as file:
+    with open(os.path.join('templates', 'template.html'), 'r') as file:
         templateh = file.read()
     dt_object = datetime.datetime.fromtimestamp(activity['time'])
     readabletime = dt_object.strftime("%A, %B %d, %Y %I:%M:%S %p")
