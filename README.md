@@ -14,6 +14,7 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Supplies information to `llama3:8b`.
 - Saves AI response and running programs list to `data/timestamp/activity.json`.
 - Generates HTML from the JSON and saves it to `data/timestamp/activity.html`.
+- Repeats this every 60 seconds
 ## Setup
 ### Prerequisites:
 - Windows 11 (This has been tested with only Windows 11. It should work on 10, however I cannot confirm that.)
