@@ -9,18 +9,7 @@
         :root {
             background-image: url("capture.png");
             background-size: cover;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            background-attachment: fixed;
         }
 
         @keyframes pageLoadFade {
@@ -98,7 +87,7 @@
         }
 
         div.windows {
-            background: #1E1E1E;
+            background: #2C2C2C;
             border-radius: 15px;
             margin-top: 20px;
             margin-bottom: 30px;
@@ -117,11 +106,14 @@
             overflow: hidden;
         }
 
+        div.backContainer {
+            margin-right: 30px;
+        }
+        
         div.back {
             background: #414141;
             padding-left: 15px;
             padding-right: 15px;
-            margin-right: 30px;
             max-width: fit-content;
             height: 35px;
             display: flex;
@@ -166,12 +158,14 @@
 <body>
     <main>
         <div class="top">
-            <a href="/" title="Back">
-                <div class="back">
-                    <img class="back" src="/static/arrow.svg">
-                    <p class="back">Back</p>
-                </div>
-            </a>
+            <div class="backContainer">
+                <a href="/" title="Back">
+                    <div class="back">
+                        <img class="back" src="/static/arrow.svg">
+                        <p class="back">Back</p>
+                    </div>
+                </a>
+            </div>
             <p class="top">{{ date }}, took {{ took }}s</p>
         </div>
 
