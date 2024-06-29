@@ -1,5 +1,5 @@
 # fakerecall
-My recreation of Windows Recall in Python (it's goofy)
+My recreation of Windows Recall in Python. It's fully open-source and locally hosted.
 <br><br>
 If you see an entry with title `N/A` that probably means it's still generating.<br>
 All the data is stored in the `data` directory.
