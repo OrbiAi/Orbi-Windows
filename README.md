@@ -26,3 +26,5 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Make a venv (`python -m venv venv`, activate with `venv\Scripts\activate`) (optional but recommended)
 - Install the required libraries with `pip install pywin32 pillow flask requests pytesseract`
 - Run both `main.py` (the web server) and `capture.py` (the ai thingy itself)
+
+![sand cat](http://i.ipg.pw/sandcats/sunaaa0720-20210425-0005.jpg)
