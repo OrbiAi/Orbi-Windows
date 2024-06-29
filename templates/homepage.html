@@ -1,63 +1,165 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:ms="urn:schemas-microsoft-com:xslt" 
-      xmlns:bat="http://schemas.microsoft.com/battery/2012" 
-      xmlns:js="http://microsoft.com/kernel">
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="ReportUtcOffset" content="+3:00"/>
-    <title>Activity report</title>
+
+<head> 
+    <title>Activity Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+        :root {
+            background-color: black;
+            background-image: url("{{ img_folder }}/capture.png");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        @keyframes pageLoadFade {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        html, body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
         body {
-            font-family: Segoe UI Light;
-            background-color: #181818;
             color: #F0F0F0;
-            margin-left: 5.5em;
+            display: flex;
+            justify-content: left;
+            align-items: start;
+            background-color: rgba(32, 32, 32, 0.7);
+            backdrop-filter: blur(20px);
         }
+
+        main {
+            max-width: 820px;
+            height: auto;
+            width: 100%;
+            padding: 0 30px;
+        }
+
         h1 {
-            color: #11D8E8;
-            font-size: 42pt;
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 40px;
         }
+
+        h2 {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 24px;
+        }
+
         h3 {
-            color: #F0A500;
-            font-size: 18pt;
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 15px;
         }
+
         p {
-            font-size: 14pt;
-            margin-bottom: 1em;
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 16px;
         }
-        .small-text {
-            font-size: 12pt;
-            font-style: italic;
-        }
-        img {
-            margin-top: 1em;
-            border: 1px solid #F0F0F0;
-            max-width: 55%;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 0.5em 0;
-        }
+
         a {
-            color: #11D8E8;
+            color: currentColor;
             text-decoration: none;
-            font-size: 18pt;
+        }
+
+        div.searchBar {
+            max-width: 340px;
+            height: 40px;
+            background: #1E1E1E;
+            border-radius: 20px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-bottom: 30px;
+            border: 1px solid #555555;
+        }
+        
+        p.searchPlaceholder {
+            margin-left: 20px;
+            font-weight: 700;
+            font-size: 15px;
+            color: #555555;
+        }
+
+        img.searchIcon {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
+        div.listItem {
+            max-width: 820px;
+            min-height: 82px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-bottom: 30px;
+            background: #414141;
+            border-radius: 15px;
+        }
+
+        img.listItem {
+            height: 50px;
+            width: auto;
+            border-radius: 7.5px;
+            border: 2px solid #F0F0F0;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        p.listItem {
+            font-weight: 500;
+            font-size: 15px;
+            overflow: hidden;
+        }
+
+        .itemTitle {
+            font-weight: 700;
+            margin-right: 20px;
+        }
+
+        .itemTime {
+            font-weight: 500;
+            margin-right: 20px;
         }
     </style>
 </head>
+
 <body>
-    <h1>Activity report</h1>
-    <h3>Available Reports</h3>
-    <ul>
+    <main>
+        <h1>Home</h1>
+        <div class="searchBar">
+            <p class="searchPlaceholder">Search...</p>
+            <img class="searchIcon" src="/static/search.svg" draggable="false">
+        </div>
+        
         {% for folder, primary in folders_data %}
-        <li>
-            <a href="/{{ folder }}/activity.html">{{ folder | to_datetime }} - {{ primary }}</a>
-        </li>
+        <a href="/{{ folder }}/activity.html">
+            <div class="listItem">
+                <img class="listItem" src="/{{ folder }}/capture.png">
+                <div class="textContainer">
+                    <p class="itemTitle">{{ primary }}</p>
+                    <p class="itemTime">{{ folder | to_datetime }}</p>
+                </div>
+            </div>
+        </a>
         {% endfor %}
-    </ul>
+    </main>
 </body>
-</html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, send_from_directory, abort
 import os
 import json
 from datetime import datetime, timezone
+import random
 app = Flask(__name__)
 
 DATA_DIR = 'data'
@@ -15,7 +16,7 @@ def index():
     except FileNotFoundError:
         folders = []
 
-    folders.sort(key=lambda x: int(x))
+    folders.sort(key=lambda x: int(x), reverse=True)
 
     for folder in folders:
         activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
@@ -28,7 +29,12 @@ def index():
 
         folders_data.append((folder, primary))
     
-    return render_template('homepage.html', folders_data=folders_data)
+    try:
+        img_folder = random.choice(folders)
+    except IndexError:
+        img_folder = ""
+    
+    return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder)
 
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):
