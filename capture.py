@@ -84,7 +84,7 @@ def capturescr():
         .replace("{{ img }}", str('capture.png'))
         .replace("{{ took }}", str(activity['took']))
     )
-    with open(os.path.join('data', str(int(timenow)), 'activity.html'), 'w') as newfile:
+    with open(os.path.join('data', str(int(timenow)), 'activity.html'), 'w', encoding="utf-8") as newfile:
         newfile.write(templateh)
 
 while True:
