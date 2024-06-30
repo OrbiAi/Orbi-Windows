@@ -1,3 +1,4 @@
+import asyncio
 from PIL import ImageGrab, Image
 from win32gui import GetWindowText, GetForegroundWindow # pywin32 # type: ignore
 import win32gui # type: ignore
@@ -5,10 +6,10 @@ import pytesseract
 import datetime
 import os
 import time
-import requests
+import aiohttp
 import json
 import re
-from time import sleep
+from aiofiles import open as aio_open
 
 DATA_DIR = 'data'
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -32,16 +33,16 @@ def getopenwindows():
     }
     return thelist
 
-def screenshot(path):
+async def screenshot(path):
     img = ImageGrab.grab()
     img.save(os.path.join(path, 'capture.png'))
 
-def gettext(imgpath):
+async def gettext(imgpath):
     img = Image.open(imgpath)
     text = pytesseract.image_to_string(img)
     return text
 
-def genai(text):
+async def genai(text):
     aresponse = "not yet"
     try:
         wininfo = getopenwindows()
@@ -53,36 +54,39 @@ def genai(text):
             "prompt": f"{contextstring}\n{text}",
             "stream": False
         }
-        response = requests.post(url, json=data)
-        response.raise_for_status()
-        aresponse = response.json()['response']
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=data) as response:
+                response.raise_for_status()
+                res = await response.json()
+                aresponse = res['response']
     except Exception as e:
         print(e)
     while aresponse == "not yet":
-        sleep(1)
+        await asyncio.sleep(1)
     return aresponse
 
-def capturescr():
+async def capturescr():
     timenow = time.time()
-    if not os.path.exists(os.path.join(DATA_DIR, str(int(timenow)))):
-        os.makedirs(os.path.join(DATA_DIR, str(int(timenow))))
-    screenshot(os.path.join(DATA_DIR, str(int(timenow))))
+    dir_path = os.path.join(DATA_DIR, str(int(timenow)))
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+    await screenshot(dir_path)
     wininfo = getopenwindows()
-    textonscr = gettext(os.path.join(DATA_DIR, str(int(timenow)), 'capture.png'))
-    description = genai(textonscr)
+    textonscr = await gettext(os.path.join(dir_path, 'capture.png'))
+    description = await genai(textonscr)
     activity = {
         'time': int(timenow),
         'activity': description,
         'focused': wininfo['focused'],
         'open': wininfo['open'],
-        'took': round(time.time()-timenow),
+        'took': round(time.time() - timenow),
         'text': str(fixspacedupe('\n'.join(textonscr.split('\n')[1:])))
     }
-    with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.json'), 'w') as f:
-        json.dump(activity, f)
-
-    with open(os.path.join('templates', 'template.html'), 'r') as file:
-        templateh = file.read()
+    async with aio_open(os.path.join(dir_path, 'activity.json'), 'w') as f:
+        await f.write(json.dumps(activity))
+    
+    async with aio_open(os.path.join('templates', 'template.html'), 'r') as file:
+        templateh = await file.read()
     dt_object = datetime.datetime.fromtimestamp(activity['time'])
     readabletime = dt_object.strftime("%A, %B %d, %Y %I:%M:%S %p")
     templateh = (templateh
@@ -93,9 +97,13 @@ def capturescr():
         .replace("{{ took }}", str(activity['took']))
         .replace("{{ img }}", str('capture.png'))
     )
-    with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.html'), 'w', encoding="utf-8") as newfile:
-        newfile.write(templateh)
+    async with aio_open(os.path.join(dir_path, 'activity.html'), 'w', encoding="utf-8") as newfile:
+        await newfile.write(templateh)
 
-while True:
-    capturescr()
-    sleep(60)
+async def main():
+    while True:
+        await capturescr()
+        await asyncio.sleep(60)
+
+if __name__ == "__main__":
+    asyncio.run(main())
