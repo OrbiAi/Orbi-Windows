@@ -9,6 +9,7 @@ import requests
 import json
 from time import sleep
 
+DATA_DIR = 'data'
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def getopenwindows():
@@ -57,11 +58,11 @@ def genai(text):
 
 def capturescr():
     timenow = time.time()
-    if not os.path.exists(os.path.join('data', str(int(timenow)))):
-        os.makedirs(os.path.join('data', str(int(timenow))))
-    screenshot(os.path.join('data', str(int(timenow))))
+    if not os.path.exists(os.path.join(DATA_DIR, str(int(timenow)))):
+        os.makedirs(os.path.join(DATA_DIR, str(int(timenow))))
+    screenshot(os.path.join(DATA_DIR, str(int(timenow))))
     wininfo = getopenwindows()
-    description = genai(gettext(os.path.join('data', str(int(timenow)), 'capture.png')))
+    description = genai(gettext(os.path.join(DATA_DIR, str(int(timenow)), 'capture.png')))
     activity = {
         'time': int(timenow),
         'activity': description,
@@ -69,7 +70,7 @@ def capturescr():
         'open': wininfo['open'],
         'took': round(time.time()-timenow)
     }
-    with open(os.path.join('data', str(int(timenow)), 'activity.json'), 'w') as f:
+    with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.json'), 'w') as f:
         json.dump(activity, f)
 
     with open(os.path.join('templates', 'template.html'), 'r') as file:
@@ -84,7 +85,7 @@ def capturescr():
         .replace("{{ img }}", str('capture.png'))
         .replace("{{ took }}", str(activity['took']))
     )
-    with open(os.path.join('data', str(int(timenow)), 'activity.html'), 'w') as newfile:
+    with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.html'), 'w') as newfile:
         newfile.write(templateh)
 
 while True:
