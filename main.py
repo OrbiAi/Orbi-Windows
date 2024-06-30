@@ -67,9 +67,11 @@ def search():
             continue
 
     try:
-        img_folder = random.choice(results)
+        img_folder = random.choice(folders)
     except IndexError:
         img_folder = ""
+    
+    print(img_folder)
     
     return render_template('search.html', folders_data=results, img_folder=img_folder, capture_amount=len(results))
 
