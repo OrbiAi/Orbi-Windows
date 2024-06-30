@@ -79,7 +79,7 @@
             color: currentColor;
             text-decoration: none;
         }
-
+        
         .searchBar {
             max-width: 340px;
             height: 40px;
@@ -169,18 +169,29 @@
             font-weight: 500;
             margin-right: 20px;
         }
+
+        /* .folderButton {
+            width: 130px;
+            height: fit-content;
+            background: #1E1E1E;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid #555555;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+        } */
     </style>
 </head>
 
 <body>
     <main>
         <h1>Home</h1>
-        <div>
-            <form action="/search" method="get" class="searchBar">
-                <input type="text" placeholder="Search.." name="query" value="{{ request.args.get('query', '') }}" class="searchInput">
-                <button type="submit"><img class="searchIcon" src="/static/search.svg" draggable="false"></button>
-            </form>
-        </div>
+        <form action="/search" method="get" class="searchBar">
+            <input type="text" placeholder="Search.." name="query" value="{{ request.args.get('query', '') }}" class="searchInput">
+            <button type="submit"><img class="searchIcon" src="/static/search.svg" draggable="false"></button>
+        </form>
+        
+        <p>{{ capture_amount }} captures, {{ file_size }} consumed</p>
         
         {% for folder, primary in folders_data %}
         <a href="/{{ folder }}/activity.html">
@@ -193,5 +204,11 @@
             </div>
         </a>
         {% endfor %}
+        
+        <!-- <a href="/folder">
+            <div class="folderButton">
+                <h3>View in Folder</h3>
+            </div>
+        </a> -->
     </main>
 </body>

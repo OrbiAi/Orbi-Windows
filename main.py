@@ -3,6 +3,9 @@ import os
 import json
 from datetime import datetime, timezone
 import random
+from humanize import naturalsize
+from glob import glob
+
 app = Flask(__name__)
 
 DATA_DIR = 'data'
@@ -34,7 +37,9 @@ def index():
     except IndexError:
         img_folder = ""
     
-    return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder)
+    file_size = naturalsize(sum(os.path.getsize(x) for x in glob('./data/**', recursive=True)))
+    
+    return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder, capture_amount=len(folders_data), file_size=file_size)
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -61,7 +66,12 @@ def search():
         except (FileNotFoundError, json.JSONDecodeError):
             continue
 
-    return render_template('homepage.html', folders_data=results)
+    return render_template('search.html', folders_data=results, capture_amount=len(results))
+
+# @app.route('/folder')
+# def folder():
+#     os.startfile(os.path.normpath("data"))
+#     return redirect("/")
 
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):
