@@ -91,6 +91,7 @@ def capturescr():
         .replace("{{ date }}", str(readabletime))
         .replace("{{ allwindows }}", str(activity['open']))
         .replace("{{ took }}", str(activity['took']))
+        .replace("{{ img }}", str('capture.png'))
     )
     with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.html'), 'w') as newfile:
         newfile.write(templateh)
