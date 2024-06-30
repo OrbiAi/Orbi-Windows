@@ -52,6 +52,10 @@
 <body>
     <h1>Activity report</h1>
     <h3>Available Reports</h3>
+    <form action="/search" method="get">
+        <input type="text" name="query" placeholder="Search..." value="{{ request.args.get('query', '') }}">
+        <button type="submit">Search</button>
+    </form>
     <ul>
         {% for folder, primary in folders_data %}
         <li>
