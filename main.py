@@ -2,6 +2,10 @@ from flask import Flask, render_template, send_from_directory, abort, jsonify, r
 import os
 import json
 from datetime import datetime, timezone
+import random
+from humanize import naturalsize
+from glob import glob
+
 app = Flask(__name__)
 
 DATA_DIR = 'data'
@@ -15,7 +19,7 @@ def index():
     except FileNotFoundError:
         folders = []
 
-    folders.sort(key=lambda x: int(x))
+    folders.sort(key=lambda x: int(x), reverse=True)
 
     for folder in folders:
         activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
@@ -28,7 +32,14 @@ def index():
 
         folders_data.append((folder, primary))
     
-    return render_template('homepage.html', folders_data=folders_data)
+    try:
+        img_folder = random.choice(folders)
+    except IndexError:
+        img_folder = ""
+    
+    file_size = naturalsize(sum(os.path.getsize(x) for x in glob('./data/**', recursive=True)))
+    
+    return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder, capture_amount=len(folders_data), file_size=file_size)
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -55,7 +66,19 @@ def search():
         except (FileNotFoundError, json.JSONDecodeError):
             continue
 
-    return render_template('homepage.html', folders_data=results)
+    try:
+        img_folder = random.choice(folders)
+    except IndexError:
+        img_folder = ""
+    
+    print(img_folder)
+    
+    return render_template('search.html', folders_data=results, img_folder=img_folder, capture_amount=len(results))
+
+# @app.route('/folder')
+# def folder():
+#     os.startfile(os.path.normpath("data"))
+#     return redirect("/")
 
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):

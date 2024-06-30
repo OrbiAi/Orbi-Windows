@@ -79,6 +79,24 @@
             color: currentColor;
             text-decoration: none;
         }
+
+        .searchContainer {
+            display: flex;
+            justify-content: left;
+            margin-bottom: 30px;
+        }
+
+        .backButton {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #555555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            
+        }
         
         .searchBar {
             max-width: 340px;
@@ -88,7 +106,6 @@
             display: flex;
             justify-content: left;
             align-items: center;
-            margin-bottom: 30px;
             border: 1px solid #555555;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
         }
@@ -170,29 +187,27 @@
             font-weight: 500;
             margin-right: 20px;
         }
-
-        /* .folderButton {
-            width: 130px;
-            height: fit-content;
-            background: #1E1E1E;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 30px;
-            border: 1px solid #555555;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
-        } */
     </style>
 </head>
 
 <body>
     <main>
-        <h1>Home</h1>
-        <form action="/search" method="get" class="searchBar">
-            <input type="text" placeholder="Search.." name="query" value="{{ request.args.get('query', '') }}" class="searchInput">
-            <button type="submit"><img class="searchIcon" src="/static/search.svg" draggable="false"></button>
-        </form>
-        
-        <p>{{ capture_amount }} captures, {{ file_size }} consumed</p>
+        <h1>Search</h1>
+        <div class="searchContainer">
+            <div class="backButtonContainer" style="padding-right: 15px;">
+                <a href="/">
+                    <div class="backButton">
+                        <img src="/static/arrow.svg" style="width: 15px; height: 15px;">
+                    </div>
+                </a>
+            </div>
+            <form action="/search" method="get" class="searchBar">
+                <input type="text" placeholder="Search.." name="query" value="{{ request.args.get('query', '') }}" class="searchInput">
+                <button type="submit"><img class="searchIcon" src="/static/search.svg" draggable="false"></button>
+            </form>
+        </div>
+
+        <p>{{ capture_amount }} captures found matching "{{ request.args.get('query', '') }}"</p>
         
         {% for folder, primary in folders_data %}
         <a href="/{{ folder }}/activity.html">
@@ -205,11 +220,5 @@
             </div>
         </a>
         {% endfor %}
-        
-        <!-- <a href="/folder">
-            <div class="folderButton">
-                <h3>View in Folder</h3>
-            </div>
-        </a> -->
     </main>
 </body>
