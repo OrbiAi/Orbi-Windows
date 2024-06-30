@@ -66,7 +66,12 @@ def search():
         except (FileNotFoundError, json.JSONDecodeError):
             continue
 
-    return render_template('search.html', folders_data=results, capture_amount=len(results))
+    try:
+        img_folder = random.choice(results)
+    except IndexError:
+        img_folder = ""
+    
+    return render_template('search.html', folders_data=results, img_folder=img_folder, capture_amount=len(results))
 
 # @app.route('/folder')
 # def folder():
