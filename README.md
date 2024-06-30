@@ -3,7 +3,7 @@ My recreation of Windows Recall in Python. It's fully open-source and locally ho
 <br><br>
 If you see an entry with title `N/A` that probably means it's still generating.<br>
 All the data is stored in the `data` directory.
-### How it works
+## How it works
 The script takes a screenshot of the computer's screen every 60 seconds, processes the text on screen, gets a list of running apps and supplies all of that information to the `llama3` model.
 #### Workflow:
 - Creates a new directory with the current timestamp in the `data` directory.
@@ -26,5 +26,7 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Make a venv (`python -m venv venv`, activate with `venv\Scripts\activate`) (optional but recommended)
 - Install the required libraries with `pip install pywin32 pillow flask requests pytesseract humanize`
 - Run both `main.py` (the web server) and `capture.py` (the ai thingy itself)
+## Credits:
+- [RestartB](https://github.com/RestartB) for doing the frontend <3
 
 ![sand cat](http://i.ipg.pw/sandcats/sunaaa0720-20210425-0005.jpg)
