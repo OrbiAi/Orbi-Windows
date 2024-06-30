@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, abort
+from flask import Flask, render_template, send_from_directory, abort, jsonify, request, redirect, url_for
 import os
 import json
 from datetime import datetime, timezone
@@ -35,6 +35,33 @@ def index():
         img_folder = ""
     
     return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder)
+
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query', '')
+    if not query:
+        return redirect(url_for('index'))
+
+    results = []
+
+    try:
+        folders = [d for d in os.listdir(DATA_DIR) if os.path.isdir(os.path.join(DATA_DIR, d))]
+    except FileNotFoundError:
+        folders = []
+
+    for folder in folders:
+        activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
+        try:
+            with open(activity_path, 'r') as file:
+                activity_data = json.load(file)
+                text = activity_data.get("text", "")
+                if query.lower() in text.lower():
+                    primary = activity_data.get("focused", "N/A")
+                    results.append((folder, primary))
+        except (FileNotFoundError, json.JSONDecodeError):
+            continue
+
+    return render_template('homepage.html', folders_data=results)
 
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):
