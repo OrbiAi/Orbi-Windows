@@ -24,7 +24,7 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Install Ollama (Download from https://ollama.com/ and run `ollama pull llama3:8b`. Make sure the server is running)
 - Download and install [this thingy](https://github.com/UB-Mannheim/tesseract/releases/download/v5.4.0.20240606/tesseract-ocr-w64-setup-5.4.0.20240606.exe)
 - Make a venv (`python -m venv venv`, activate with `venv\Scripts\activate`) (optional but recommended)
-- Install the required libraries with `pip install pywin32 pillow flask requests pytesseract`
+- Install the required libraries with `pip install pywin32 pillow flask requests pytesseract humanize`
 - Run both `main.py` (the web server) and `capture.py` (the ai thingy itself)
 
 ![sand cat](http://i.ipg.pw/sandcats/sunaaa0720-20210425-0005.jpg)
