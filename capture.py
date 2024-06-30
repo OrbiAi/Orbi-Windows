@@ -7,10 +7,16 @@ import os
 import time
 import requests
 import json
+import re
 from time import sleep
 
 DATA_DIR = 'data'
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+def fixspacedupe(text):
+    text = text.replace('\t', ' ').replace('\n', ' ')
+    ctext = re.sub(r' +', ' ', text)
+    return ctext
 
 def getopenwindows():
     focusedwindow = GetWindowText(GetForegroundWindow())
@@ -62,13 +68,15 @@ def capturescr():
         os.makedirs(os.path.join(DATA_DIR, str(int(timenow))))
     screenshot(os.path.join(DATA_DIR, str(int(timenow))))
     wininfo = getopenwindows()
-    description = genai(gettext(os.path.join(DATA_DIR, str(int(timenow)), 'capture.png')))
+    textonscr = gettext(os.path.join(DATA_DIR, str(int(timenow)), 'capture.png'))
+    description = genai(textonscr)
     activity = {
         'time': int(timenow),
         'activity': description,
         'focused': wininfo['focused'],
         'open': wininfo['open'],
-        'took': round(time.time()-timenow)
+        'took': round(time.time()-timenow),
+        'text': str(fixspacedupe('\n'.join(textonscr.split('\n')[1:])))
     }
     with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.json'), 'w') as f:
         json.dump(activity, f)
@@ -82,7 +90,6 @@ def capturescr():
         .replace("{{ description }}", str(activity['activity']))
         .replace("{{ date }}", str(readabletime))
         .replace("{{ allwindows }}", str(activity['open']))
-        .replace("{{ img }}", str('capture.png'))
         .replace("{{ took }}", str(activity['took']))
     )
     with open(os.path.join(DATA_DIR, str(int(timenow)), 'activity.html'), 'w') as newfile:
