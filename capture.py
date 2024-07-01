@@ -11,8 +11,19 @@ import json
 import re
 from aiofiles import open as aio_open
 
+SERVER_PORT = '1212'
 DATA_DIR = 'data'
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# heartbeat stuff
+async def send_heartbeat():
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f"http://localhost:{SERVER_PORT}/heartbeat"):
+                    pass
+        except Exception as e:
+            pass
+# ---
 
 def fixspacedupe(text):
     text = text.replace('\t', ' ').replace('\n', ' ')
@@ -101,9 +112,20 @@ async def capturescr():
         await newfile.write(templateh)
 
 async def main():
-    while True:
-        await capturescr()
-        await asyncio.sleep(60)
+    async def run_capturescr():
+        while True:
+            await capturescr()
+            await asyncio.sleep(60)
+    
+    async def run_heartbeat():
+        while True:
+            await send_heartbeat()
+            await asyncio.sleep(5)
+    
+    await asyncio.gather(
+        run_capturescr(),
+        run_heartbeat()
+    )
 
 if __name__ == "__main__":
     asyncio.run(main())
