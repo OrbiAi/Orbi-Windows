@@ -11,8 +11,17 @@ import json
 import re
 from aiofiles import open as aio_open
 
-SERVER_PORT = '1212'
 DATA_DIR = 'data'
+
+if os.path.exists(os.path.join(DATA_DIR, "config.json")):
+    with open(os.path.join(DATA_DIR, "config.json"), 'r') as filep:
+        filej = json.load(filep)
+        SERVER_PORT = filej['port']
+        INTERVAL = filej['interval']
+else:
+    print("No configuration file found. Please, run main.py")
+    exit()
+
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # heartbeat stuff
@@ -115,7 +124,7 @@ async def main():
     async def run_capturescr():
         while True:
             await capturescr()
-            await asyncio.sleep(60)
+            await asyncio.sleep(INTERVAL)
     
     async def run_heartbeat():
         while True:
