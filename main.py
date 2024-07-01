@@ -1,14 +1,41 @@
 from flask import Flask, render_template, send_from_directory, abort, jsonify, request, redirect, url_for
 import os
+import time
+import threading
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import random
 from humanize import naturalsize
 from glob import glob
 
 app = Flask(__name__)
 
+SERVER_PORT = '1212'
 DATA_DIR = 'data'
+
+# heartbeat stuff
+heartbeat_active = False
+last_heartbeat_time = time.time() - 10
+
+def monitor_heartbeat():
+    global heartbeat_active, last_heartbeat_time
+    while True:
+        if time.time() - last_heartbeat_time > 10:
+            heartbeat_active = False
+        else:
+            heartbeat_active = True
+        time.sleep(1)
+
+monitor_thread = threading.Thread(target=monitor_heartbeat)
+monitor_thread.daemon = True
+monitor_thread.start()
+
+@app.route('/heartbeat', methods=['GET'])
+def heartbeat():
+    global last_heartbeat_time
+    last_heartbeat_time = time.time()
+    return "Heartbeat received", 200
+# ---
 
 @app.route('/')
 def index():
@@ -38,8 +65,9 @@ def index():
         img_folder = ""
     
     file_size = naturalsize(sum(os.path.getsize(x) for x in glob('./data/**', recursive=True)))
+    capture_status = "currently capturing" if heartbeat_active == True else "not capturing"
     
-    return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder, capture_amount=len(folders_data), file_size=file_size)
+    return render_template('homepage.html', folders_data=folders_data, img_folder=img_folder, capture_amount=len(folders_data), file_size=file_size, capture_status=capture_status)
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -75,10 +103,10 @@ def search():
     
     return render_template('search.html', folders_data=results, img_folder=img_folder, capture_amount=len(results))
 
-# @app.route('/folder')
-# def folder():
-#     os.startfile(os.path.normpath("data"))
-#     return redirect("/")
+@app.route('/folder')
+def folder():
+    os.startfile(os.path.normpath("data"))
+    return redirect("/")
 
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):
