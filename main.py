@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, abort, jsonify, request, redirect, url_for
+from flask import Flask, render_template, send_from_directory, abort, jsonify, request, redirect, url_for, flash
 import os
 import time
 import threading
@@ -9,9 +9,16 @@ from humanize import naturalsize
 from glob import glob
 
 app = Flask(__name__)
+app.secret_key = 'sandcar'
 
-SERVER_PORT = '1212'
 DATA_DIR = 'data'
+
+if os.path.exists(os.path.join(DATA_DIR, "config.json")):
+    with open(os.path.join(DATA_DIR, "config.json"), 'r') as filep:
+        filej = json.load(filep)
+        SERVER_PORT = filej['port']
+else:
+    SERVER_PORT = '1212'
 
 # heartbeat stuff
 heartbeat_active = False
@@ -39,6 +46,9 @@ def heartbeat():
 
 @app.route('/')
 def index():
+    if not os.path.exists(os.path.join(DATA_DIR, 'config.json')):
+        return redirect(url_for('setupend'))
+
     folders_data = []
 
     try:
@@ -119,5 +129,52 @@ def serve_file(folder, filename):
 def to_datetime_filter(unix_timestamp):
     return datetime.fromtimestamp(int(unix_timestamp), tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
+@app.route('/setup', methods=['GET', 'POST'])
+def setupend():
+    if request.method == 'POST':
+        porty = request.form['port']
+        intervaly = request.form['interval']
+        discy = 'accept_disc' in request.form
+
+        errors = []
+        # Validate disclaimer
+        if not discy:
+            errors.append('You must accept the disclaimer.')
+
+        # Validate port
+        try:
+            porty = int(porty)
+            if not (1 <= porty <= 65535):
+                raise ValueError
+        except ValueError:
+            errors.append('Invalid port. Please enter a number between 1 and 65535.')
+
+        # Validate interval
+        try:
+            intervaly = int(intervaly)
+            if not (15 <= intervaly <= 300):
+                raise ValueError
+        except ValueError:
+            errors.append('Invalid interval. Please enter a number between 15 and 300.')
+
+        if len(errors) > 0:
+            for erro in errors:
+                flash(erro)
+            return redirect(url_for('setupend'))
+        else:
+            config = {
+                'port': porty,
+                'interval': intervaly
+            }
+
+            with open(os.path.join(DATA_DIR, 'config.json'), 'w') as config_file:
+                json.dump(config, config_file)
+
+            return "Operation complete! Please, run main.py again in order for the changes to take effect."
+
+    if os.path.exists(os.path.join(DATA_DIR, 'config.json')):
+        flash('You already have a config file. Doing this will overwrite your previous one.')
+    return render_template('setup.html')
+
 if __name__ == '__main__':
-    app.run(debug=True, port='1212')
+    app.run(debug=True, port=str(SERVER_PORT))
