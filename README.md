@@ -3,6 +3,12 @@ My recreation of Windows Recall in Python. It's fully open-source and locally ho
 <br><br>
 If you see an entry with title `N/A` that probably means it's still generating.<br>
 All the data is stored in the `data` directory.
+> [!WARNING]
+> FakeRecall ("the software") is provided "as is" without warranties of any kind. We are not liable for any damages arising from its use, including the capture or misuse of screenshots containing sensitive information. The software may capture passwords, DRM-protected content, and copyrighted material.
+>
+> By using FakeRecall, you agree to comply with all applicable laws. Your use of the software is at your own risk. We do not warrant it will be error-free or free from harmful components.
+>
+> We are not affiliated with Microsoft. FakeRecall is licensed under GPLv3. By downloading, installing, or using the software, you acknowledge that you have read, understood, and agree to this disclaimer.
 ## How it works
 The script takes a screenshot of the computer's screen every 60 seconds, processes the text on screen, gets a list of running apps and supplies all of that information to the `llama3` model.
 #### Workflow:
