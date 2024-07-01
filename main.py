@@ -13,6 +13,8 @@ app.secret_key = 'sandcar'
 
 DATA_DIR = 'data'
 
+if not os.path.exists(DATA_DIR):
+    os.makedirs(DATA_DIR)
 if os.path.exists(os.path.join(DATA_DIR, "config.json")):
     with open(os.path.join(DATA_DIR, "config.json"), 'r') as filep:
         filej = json.load(filep)
