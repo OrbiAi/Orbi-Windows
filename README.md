@@ -1,4 +1,4 @@
-# fakerecall
+# FakeRecall
 My recreation of Windows Recall in Python. It's fully open-source and locally hosted.
 <br><br>
 If you see an entry with title `N/A` that probably means it's still generating.<br>
