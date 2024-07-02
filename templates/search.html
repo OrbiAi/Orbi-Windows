@@ -220,5 +220,22 @@
             </div>
         </a>
         {% endfor %}
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('search', query=request.args.get('query', ''), page=page-1) }}">Previous</a>
+            {% endif %}
+            
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == page %}
+                    <strong>{{ p }}</strong>
+                {% else %}
+                    <a href="{{ url_for('search', query=request.args.get('query', ''), page=p) }}">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page < total_pages %}
+                <a href="{{ url_for('search', query=request.args.get('query', ''), page=page+1) }}">Next</a>
+            {% endif %}
+        </div>
     </main>
 </body>
