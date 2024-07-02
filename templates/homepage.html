@@ -13,7 +13,7 @@
             background-attachment: fixed;
         }
 
-        @keyframes pageLoadFade {
+        @keyframes itemFade {
             0% {
                 opacity: 0;
             }
@@ -196,7 +196,7 @@
         
         {% for folder, primary in folders_data %}
         <a href="/{{ folder }}/activity.html">
-            <div class="listItem">
+            <div class="listItem" style="animation: 0.5s itemFade;">
                 <img class="listItem" src="/{{ folder }}/capture.png">
                 <div class="textContainer">
                     <p class="itemTitle">{{ primary }}</p>
