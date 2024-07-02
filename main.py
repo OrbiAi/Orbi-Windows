@@ -2,9 +2,11 @@ from flask import Flask, render_template, send_from_directory, abort, jsonify, r
 import os
 import time
 import threading
+import webbrowser
 import json
 from datetime import datetime, timezone, timedelta
 import random
+import keyboard
 from humanize import naturalsize
 from glob import glob
 
@@ -44,6 +46,20 @@ def heartbeat():
     global last_heartbeat_time
     last_heartbeat_time = time.time()
     return "Heartbeat received", 200
+# ---
+
+# keyb combination
+def listenforkb():
+    while True:
+        time.sleep(0.1)
+        if keyboard.is_pressed('alt+`+1'):
+            while keyboard.is_pressed('alt+`+1'):
+                time.sleep(0.1)
+            webbrowser.open(f"http://localhost:{SERVER_PORT}", new=0, autoraise=True)
+
+keyb_thread = threading.Thread(target=listenforkb)
+keyb_thread.daemon = True
+keyb_thread.start()
 # ---
 
 @app.route('/')
