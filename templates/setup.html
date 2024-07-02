@@ -1,47 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Setup</title>
-</head>
-<body>
-    <h1>Setup Configuration</h1>
-    <p style="background-color: blue;max-width: 500px;color:white;padding:5px;border-radius: 5px;">
-🐈 Welcome to Orbi!
-<br><br>
-This is nikolan's recreation of Windows Recall in Python. It's fully open-source and locally hosted. AI may be dumb at times.
-</p>
-    <p style="background-color: red;max-width: 500px;color:white;padding:5px;border-radius: 5px;">
-⚠️ Disclaimer
-<br><br>
-Orbi ("the software") is provided "as is" without warranties of any kind. We are not liable for any damages arising from its use, including the capture or misuse of screenshots containing sensitive information. The software may capture passwords, DRM-protected content, and copyrighted material.
-<br><br>
-By using Orbi, you agree to comply with all applicable laws. Your use of the software is at your own risk. We do not warrant it will be error-free or free from harmful components.
-<br><br>
-We are not affiliated with Microsoft. Orbi is licensed under GPLv3. By downloading, installing, or using the software, you acknowledge that you have read, understood, and agree to this disclaimer.
-    </p>
-    <form action="/setup" method="POST" style="background-color: green;max-width: 500px;color:white;padding:5px;border-radius: 5px;">
-⚙️ Configuration
-<br><br>
-        <label for="port">Port:</label>
-        <input type="text" id="port" name="port"><br><br>
-        <label for="interval">Interval (in seconds):</label>
-        <input type="text" id="interval" name="interval"><br><br>
-        <label for="accept_tos">Accept Disclaimer:</label>
-        <input type="checkbox" id="accept_disc" name="accept_disc"><br><br>
-        <button type="submit">Submit</button>
-    </form>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul style="background-color: rgb(17, 0, 255);max-width: 500px;color:white;padding:5px;border-radius: 5px;">
-        ⛔ Issues
-        <br><br>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+<head> 
+    <title>Orbi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+        @keyframes itemFade {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        html, body {
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        body {
+            color: #F0F0F0;
+            display: flex;
+            justify-content: left;
+            align-items: start;
+            background-color: rgb(32, 32, 32);
+            animation: 0.5s itemFade;
+        }
+
+        main {
+            max-width: 820px;
+            height: auto;
+            width: 100%;
+            padding: 0 30px;
+        }
+
+        h1 {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 40px;
+        }
+
+        h2 {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 16px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 15px;
+            margin: 0;
+        }
+        
+        p {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .optionText {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .welcome {
+            background: #2C2C2C;
+            border: 1px solid #555555;
+            box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .disclaimer {
+            background: #3E2517;
+            border: 1px solid #555555;
+            box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .settings {
+            background: #2C2C2C;
+            border: 1px solid #555555;
+            box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .issues {
+            background: #3E1717;
+            border: 1px solid #555555;
+            box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+
+        .numInputBox {
+            max-width: 62px;
+            height: 22px;
+            background: #1E1E1E;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            border: 1px solid #555555;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+        }
+
+        .numInput {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            color: #F0F0F0;
+            background: transparent;
+            border: 0;
+            outline: none;
+            text-align: center;
+        }
+
+        ::placeholder {
+            color: #555555;
+        }
+        
+        svg {
+            position: absolute;
+        }
+        
+        input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            background: #1E1E1E;
+            border: 1px solid #555555;
+            appearance: none;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .tickDiv {
+            margin-left: auto;
+            width: 22px;
+            height: 22px;
+        }
+        
+        input[type="checkbox"]:checked {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M6.293 11.293l-3.293-3.293 1.414-1.414 1.879 1.879 4.293-4.293 1.414 1.414z'/%3E%3C/svg%3E");
+            background-size: 16px 16px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        button {
+            min-width: 80px;
+            min-height: 40px;
+            border-radius: 20px;
+            background: transparent;
+            border: none;
+            width: fit-content;
+            height: fit-content;
+            padding: 0;
+            color: #F0F0F0;
+            cursor: pointer;
+        }
+        
+        .saveButton {
+            min-width: 80px;
+            min-height: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            background: #19291D;
+            border: 1px solid #555555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Setup</h1>
+
+        <div class="welcome">
+            <h2>Welcome to Orbi!</h2>
+            <p>This is nikolan’s recreation of Windows Recall in Python. It’s fully open-source and locally hosted. Be warned, the AI may be dumb at times.</p>
+        </div>
+
+        <div class="disclaimer">
+            <h2>Disclaimer</h2>
+            <p>Orbi ("the software") is provided "as is" without warranties of any kind. We are not liable for any damages arising from its use, including the capture or misuse of screenshots containing sensitive information. The software may capture passwords, DRM-protected content, and copyrighted material.<br><br>
+
+                By using Orbi, you agree to comply with all applicable laws. Your use of the software is at your own risk. We do not warrant it will be error-free or free from harmful components.<br><br>
+                
+                We are not affiliated with Microsoft. Orbi is licensed under GPLv3. By downloading, installing, or using the software, you acknowledge that you have read, understood, and agree to this disclaimer.</p>
+        </div>
+
+        <div class="settings">
+            <h2>Settings</h2>
+            <form action="/setup" method="POST" id="settingsForm">
+                <div class="option">
+                    <div>
+                        <h3>Port</h3>
+                        <p class="optionText">Select the port used to access the Web UI. Must be between 1 and 65535.</p>
+                    </div>
+                    <div class="numInputBox">
+                        <input placeholder="1212" type="text" id="port" name="port" class="numInput" maxlength="5" size="5" required>
+                    </div>
+                </div>
+                <div class="option">
+                    <div>
+                        <h3>Interval</h3>
+                        <p class="optionText">Select the interval between each capture in seconds. Must be between 15 and 300.</p>
+                    </div>
+                    <div class="numInputBox">
+                        <input placeholder="60" type="text" id="interval" name="interval" class="numInput" maxlength="3" size="5" required>
+                    </div>
+                </div>
+                <div class="option">
+                    <div>
+                        <h3>Disclaimer</h3>
+                        <p class="optionText">By ticking this box, you acknowledge the disclaimer above.</p>
+                    </div>
+                    <div class="tickDiv">
+                        <input type="checkbox" id="accept_disc" name="accept_disc" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="issues">
+                <h2>Issues</h2>
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        
+        <button type="submit" form="settingsForm">
+            <div class="saveButton">
+                <h3>Save</h3>
+            </div>
+        </button>
+    </main>
 </body>
-</html>
