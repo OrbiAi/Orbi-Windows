@@ -216,7 +216,7 @@ def setupend():
             with open(os.path.join(DATA_DIR, 'config.json'), 'w') as config_file:
                 json.dump(config, config_file)
 
-            return "Operation complete! Please, run main.py again in order for the changes to take effect."
+            return render_template("saved_settings.html")
 
     if os.path.exists(os.path.join(DATA_DIR, 'config.json')):
         flash('You already have a config file. Doing this will overwrite your previous one.')

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<head> 
+    <title>Orbi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+        @keyframes itemFade {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes colourFadeBG {
+            0% {
+                background-color: rgb(32, 32, 32);
+            }
+            50% {
+                background-color: rgb(15, 15, 15);
+            }
+            100% {
+                background-color: rgb(32, 32, 32);
+            }
+        }
+        
+        html, body {
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        body {
+            color: #F0F0F0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: 0.5s itemFade;
+            animation: 5s colourFadeBG infinite ease-in-out;
+        }
+
+        main {
+            height: auto;
+            width: 100%;
+            padding: 0 30px;
+        }
+
+        h2 {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 16px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 15px;
+            margin: 0;
+        }
+        
+        p {
+            font-family: "Figtree", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 16px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .optionText {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .saved {
+            background: #2C2C2C;
+            border: 1px solid #555555;
+            box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .doneButton {
+            min-height: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            background-color: #19291D;
+            border: 1px solid #555555;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .doneButton:hover {
+            background-color: #213627;
+        }
+
+        a {
+            text-decoration: none;
+            color: #F0F0F0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="saved">
+    <h2>Nearly there!</h2>
+    <p>Please launch main.py, then click the button below!</p>
+    <a href="/">
+        <div class="doneButton">
+            <h3>Done</h3>
+        </div>
+    </button>
+</div>
+</body>
