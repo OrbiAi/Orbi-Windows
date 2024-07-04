@@ -31,7 +31,7 @@ async def send_heartbeat():
                 async with session.get(f"http://localhost:{SERVER_PORT}/heartbeat"):
                     pass
         except Exception as e:
-            pass
+            print(f"Unable to reach Web UI server (is it running?): {e}")
 # ---
 
 def fixspacedupe(text):
@@ -76,7 +76,10 @@ async def genai(text):
         }
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json=data) as response:
-                response.raise_for_status()
+                try:
+                    response.raise_for_status()
+                except Exception as e:
+                    print(f"Unable to reach Ollama server (is it running?): {e}")
                 res = await response.json()
                 aresponse = res['response']
     except Exception as e:
