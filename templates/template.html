@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 
-<head> 
-    <title>Activity Report</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/static/template.css">
-    <style type="text/css">
-    :root {
-        background-image: url("capture.png");
-        background-size: cover;
-        background-attachment: fixed;
-    }
-</style>
-</head>
+<html lang="en">
+    <head> 
+        <title>Activity Report</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/template.css">
+        <style type="text/css">
+        :root {
+            background-image: url("capture.png");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+    </head>
 
-<body>
-    <main>
-        <div class="top">
-            <div class="backContainer">
-                <a href="/" title="Back">
-                    <div class="back">
-                        <img class="back" src="/static/arrow.svg">
-                        <p class="back">Back</p>
-                    </div>
-                </a>
+    <body>
+        <main>
+            <div class="top">
+                <div class="backContainer">
+                    <a href="/" title="Back">
+                        <div class="back">
+                            <img class="back" src="/static/arrow.svg">
+                            <p class="back">Back</p>
+                        </div>
+                    </a>
+                </div>
+                <p class="top">{{ date }}, took {{ took }}s</p>
             </div>
-            <p class="top">{{ date }}, took {{ took }}s</p>
-        </div>
 
-        <h1>Activity Report</h1>
-        <h2>{{ primarywindow }}</h2>
-        <p>{{ description }}</p>
-        
-        <img class="capture" alt="User Screenshot" src="{{ img }}">
+            <h1>Activity Report</h1>
+            <h2>{{ primarywindow }}</h2>
+            <p>{{ description }}</p>
+            
+            <img class="capture" alt="User Screenshot" src="{{ img }}">
 
-        <div class="windows">
-            <h3>All Windows</h3>
-            <p class="windows">{{ allwindows }}</p>
-        </div>
-    </main>
-</body>
+            <div class="windows">
+                <h3>All Windows</h3>
+                <p class="windows">{{ allwindows }}</p>
+            </div>
+        </main>
+    </body>
+</html>

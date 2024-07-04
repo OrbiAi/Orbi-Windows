@@ -1,241 +1,244 @@
 <!DOCTYPE html>
 
-<head> 
-    <title>Orbi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+<html lang="en">
+    <head> 
+        <title>Orbi</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <style type="text/css">
+            @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
-        :root {
-            background-color: black;
-            background-image: url("{{ img_folder }}/capture.png");
-            background-size: cover;
-            background-attachment: fixed;
-        }
-
-        @keyframes itemFade {
-            0% {
-                opacity: 0;
+            :root {
+                background-color: black;
+                background-image: url("{{ img_folder }}/capture.png");
+                background-size: cover;
+                background-attachment: fixed;
             }
-            100% {
-                opacity: 1;
+
+            @keyframes itemFade {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
             }
-        }
 
-        html, body {
-            margin: 0;
-            min-height: 100vh;
-        }
+            html, body {
+                margin: 0;
+                min-height: 100vh;
+            }
 
-        body {
-            color: #F0F0F0;
-            display: flex;
-            justify-content: left;
-            align-items: start;
-            background-color: rgba(32, 32, 32, 0.7);
-            backdrop-filter: blur(20px);
-        }
+            body {
+                color: #F0F0F0;
+                display: flex;
+                justify-content: left;
+                align-items: start;
+                background-color: rgba(32, 32, 32, 0.7);
+                backdrop-filter: blur(20px);
+            }
 
-        main {
-            max-width: 820px;
-            height: auto;
-            width: 100%;
-            padding: 0 30px;
-        }
+            main {
+                max-width: 820px;
+                height: auto;
+                width: 100%;
+                padding: 0 30px;
+            }
 
-        h1 {
-            font-family: "Figtree", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 700;
-            font-style: normal;
-            font-size: 40px;
-        }
+            h1 {
+                font-family: "Figtree", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 700;
+                font-style: normal;
+                font-size: 40px;
+            }
 
-        h2 {
-            font-family: "Figtree", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 600;
-            font-style: normal;
-            font-size: 24px;
-        }
+            h2 {
+                font-family: "Figtree", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 600;
+                font-style: normal;
+                font-size: 24px;
+            }
 
-        h3 {
-            font-family: "Figtree", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 700;
-            font-style: normal;
-            font-size: 15px;
-        }
+            h3 {
+                font-family: "Figtree", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 700;
+                font-style: normal;
+                font-size: 15px;
+            }
 
-        p {
-            font-family: "Figtree", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 500;
-            font-style: normal;
-            font-size: 16px;
-        }
+            p {
+                font-family: "Figtree", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 500;
+                font-style: normal;
+                font-size: 16px;
+            }
 
-        a {
-            color: currentColor;
-            text-decoration: none;
-        }
+            a {
+                color: currentColor;
+                text-decoration: none;
+            }
 
-        .searchContainer {
-            display: flex;
-            justify-content: left;
-            margin-bottom: 30px;
-        }
+            .searchContainer {
+                display: flex;
+                justify-content: left;
+                margin-bottom: 30px;
+            }
 
-        .backButton {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #555555;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            .backButton {
+                width: 40px;
+                height: 40px;
+                border: 1px solid #555555;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+                
+            }
             
-        }
-        
-        .searchBar {
-            max-width: 340px;
-            height: 40px;
-            background: #1E1E1E;
-            border-radius: 20px;
-            display: flex;
-            justify-content: left;
-            align-items: center;
-            border: 1px solid #555555;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
-        }
+            .searchBar {
+                max-width: 340px;
+                height: 40px;
+                background: #1E1E1E;
+                border-radius: 20px;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                border: 1px solid #555555;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            }
 
-        input.searchInput {
-            font-family: "Figtree", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-            margin-left: 20px;
-            font-weight: 700;
-            font-size: 15px;
-            color: #F0F0F0;
-            background: transparent;
-            border: 0;
-            outline: none;
-        }
+            input.searchInput {
+                font-family: "Figtree", sans-serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                margin-left: 20px;
+                font-weight: 700;
+                font-size: 15px;
+                color: #F0F0F0;
+                background: transparent;
+                border: 0;
+                outline: none;
+            }
 
-        ::placeholder {
-            color: #555555;
-        }
-        
-        button {
-            width: 55px;
-            height: 40px;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            margin-left: auto;
-            background: transparent;
-            border: none;
-            outline: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .searchIcon {
-            background: transparent;
-            border: 0;
-            outline: none;
-            width: 15px;
-            height: auto;
-        }
+            ::placeholder {
+                color: #555555;
+            }
+            
+            button {
+                width: 55px;
+                height: 40px;
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+                margin-left: auto;
+                background: transparent;
+                border: none;
+                outline: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+            
+            .searchIcon {
+                background: transparent;
+                border: 0;
+                outline: none;
+                width: 15px;
+                height: auto;
+            }
 
-        div.listItem {
-            max-width: 820px;
-            min-height: 82px;
-            display: flex;
-            justify-content: left;
-            align-items: center;
-            margin-bottom: 30px;
-            background: #2C2C2C;
-            border: 1px solid #555555;
-            border-radius: 15px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
-        }
+            div.listItem {
+                max-width: 820px;
+                min-height: 82px;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                margin-bottom: 30px;
+                background: #2C2C2C;
+                border: 1px solid #555555;
+                border-radius: 15px;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+            }
 
-        img.listItem {
-            height: 50px;
-            width: auto;
-            border-radius: 7.5px;
-            border: 2px solid #F0F0F0;
-            margin-left: 20px;
-            margin-right: 20px;
-        }
+            img.listItem {
+                height: 50px;
+                width: auto;
+                border-radius: 7.5px;
+                border: 2px solid #F0F0F0;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
 
-        p.listItem {
-            font-weight: 500;
-            font-size: 15px;
-            overflow: hidden;
-        }
+            p.listItem {
+                font-weight: 500;
+                font-size: 15px;
+                overflow: hidden;
+            }
 
-        .itemTitle {
-            font-weight: 700;
-            margin-right: 20px;
-        }
+            .itemTitle {
+                font-weight: 700;
+                margin-right: 20px;
+            }
 
-        .itemTime {
-            font-weight: 500;
-            margin-right: 20px;
-        }
-    </style>
-</head>
+            .itemTime {
+                font-weight: 500;
+                margin-right: 20px;
+            }
+        </style>
+    </head>
 
-<body>
-    <main>
-        <h1>Search</h1>
-        <div class="searchContainer">
-            <div class="backButtonContainer" style="padding-right: 15px;">
-                <a href="/">
-                    <div class="backButton">
-                        <img src="/static/arrow.svg" style="width: 15px; height: 15px;">
-                    </div>
-                </a>
-            </div>
-            <form action="/search" method="get" class="searchBar">
-                <input type="text" placeholder="Search.." name="query" value="{{ request.args.get('query', '') }}" class="searchInput">
-                <button type="submit"><img class="searchIcon" src="/static/search.svg" draggable="false"></button>
-            </form>
-        </div>
-
-        <p>{{ capture_amount }} captures found matching "{{ request.args.get('query', '') }}"</p>
-        
-        {% for folder, primary in folders_data %}
-        <a href="/{{ folder }}/activity.html">
-            <div class="listItem" style="animation: 0.5s itemFade;">
-                <img class="listItem" src="/{{ folder }}/capture.png">
-                <div class="textContainer">
-                    <p class="itemTitle">{{ primary }}</p>
-                    <p class="itemTime">{{ folder | to_datetime }}</p>
+    <body>
+        <main>
+            <h1>Search</h1>
+            <div class="searchContainer">
+                <div class="backButtonContainer" style="padding-right: 15px;">
+                    <a href="/">
+                        <div class="backButton">
+                            <img src="/static/arrow.svg" style="width: 15px; height: 15px;">
+                        </div>
+                    </a>
                 </div>
+                <form action="/search" method="get" class="searchBar">
+                    <input type="text" placeholder="Search.." name="query" value="{{ request.args.get('query', '') }}" class="searchInput">
+                    <button type="submit"><img class="searchIcon" src="/static/search.svg" draggable="false"></button>
+                </form>
             </div>
-        </a>
-        {% endfor %}
-        <div class="pagination">
-            {% if page > 1 %}
-                <a href="{{ url_for('search', query=request.args.get('query', ''), page=page-1) }}">Previous</a>
-            {% endif %}
+
+            <p>{{ capture_amount }} captures found matching "{{ request.args.get('query', '') }}"</p>
             
-            {% for p in range(1, total_pages + 1) %}
-                {% if p == page %}
-                    <strong>{{ p }}</strong>
-                {% else %}
-                    <a href="{{ url_for('search', query=request.args.get('query', ''), page=p) }}">{{ p }}</a>
-                {% endif %}
+            {% for folder, primary in folders_data %}
+            <a href="/{{ folder }}/activity.html">
+                <div class="listItem" style="animation: 0.5s itemFade;">
+                    <img class="listItem" src="/{{ folder }}/capture.png">
+                    <div class="textContainer">
+                        <p class="itemTitle">{{ primary }}</p>
+                        <p class="itemTime">{{ folder | to_datetime }}</p>
+                    </div>
+                </div>
+            </a>
             {% endfor %}
-            
-            {% if page < total_pages %}
-                <a href="{{ url_for('search', query=request.args.get('query', ''), page=page+1) }}">Next</a>
-            {% endif %}
-        </div>
-    </main>
-</body>
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="{{ url_for('search', query=request.args.get('query', ''), page=page-1) }}">Previous</a>
+                {% endif %}
+                
+                {% for p in range(1, total_pages + 1) %}
+                    {% if p == page %}
+                        <strong>{{ p }}</strong>
+                    {% else %}
+                        <a href="{{ url_for('search', query=request.args.get('query', ''), page=p) }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page < total_pages %}
+                    <a href="{{ url_for('search', query=request.args.get('query', ''), page=page+1) }}">Next</a>
+                {% endif %}
+            </div>
+        </main>
+    </body>
+</html>
