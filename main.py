@@ -68,6 +68,7 @@ def index():
         return redirect(url_for('setupend'))
 
     folders_data = []
+    unlockedFolders = []
 
     try:
         folders = [d for d in os.listdir(DATA_DIR) if os.path.isdir(os.path.join(DATA_DIR, d))]
@@ -77,18 +78,22 @@ def index():
     folders.sort(key=lambda x: int(x), reverse=True)
 
     for folder in folders:
-        activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
-        try:
-            with open(activity_path, 'r') as file:
-                activity_data = json.load(file)
-                primary = activity_data.get("focused", "N/A")
-        except (FileNotFoundError, json.JSONDecodeError):
-            primary = "N/A"
+        if not(os.path.exists(os.path.join(DATA_DIR, folder, '.lock'))):
+            unlockedFolders.append(os.path.join(DATA_DIR, folder))
+            activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
+            try:
+                with open(activity_path, 'r') as file:
+                    activity_data = json.load(file)
+                    primary = activity_data.get("focused", "N/A")
+            except (FileNotFoundError, json.JSONDecodeError):
+                primary = "N/A"
 
-        folders_data.append((folder, primary))
+            folders_data.append((folder, primary))
+        else:
+            pass
 
     try:
-        img_folder = random.choice(folders)
+        img_folder = random.choice(unlockedFolders)
     except IndexError:
         img_folder = ""
     
@@ -105,7 +110,8 @@ def index():
         'homepage.html',
         folders_data=folders_data,
         img_folder=img_folder,
-        capture_amount=len(folders),
+        capture_amount=len(unlockedFolders),
+        currently_capturing=len(folders) - len(unlockedFolders),
         file_size=file_size,
         capture_status=capture_status,
         page=page,
@@ -119,6 +125,7 @@ def search():
         return redirect(url_for('index'))
 
     results = []
+    unlockedFolders = []
 
     try:
         folders = [d for d in os.listdir(DATA_DIR) if os.path.isdir(os.path.join(DATA_DIR, d))]
@@ -126,19 +133,23 @@ def search():
         folders = []
 
     for folder in folders:
-        activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
-        try:
-            with open(activity_path, 'r') as file:
-                activity_data = json.load(file)
-                text = activity_data.get("text", "")
-                if query.lower() in text.lower():
-                    primary = activity_data.get("focused", "N/A")
-                    results.append((folder, primary))
-        except (FileNotFoundError, json.JSONDecodeError):
-            continue
+        if not(os.path.exists(os.path.join(DATA_DIR, folder, '.lock'))):
+            unlockedFolders.append(os.path.join(DATA_DIR, folder))
+            activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
+            try:
+                with open(activity_path, 'r') as file:
+                    activity_data = json.load(file)
+                    text = activity_data.get("text", "")
+                    if query.lower() in text.lower():
+                        primary = activity_data.get("focused", "N/A")
+                        results.append((folder, primary))
+            except (FileNotFoundError, json.JSONDecodeError):
+                continue
+        else:
+            pass
 
     try:
-        img_folder = random.choice(folders)
+        img_folder = random.choice(unlockedFolders)
     except IndexError:
         img_folder = ""
     

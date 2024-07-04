@@ -93,6 +93,14 @@ async def capturescr():
     dir_path = os.path.join(DATA_DIR, str(int(timenow)))
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
+        with open(os.path.join(dir_path, ".lock"), mode='a'): pass
+
+    async with aio_open(os.path.join('templates', 'incomplete.html'), 'r') as file:
+        templateh = await file.read()
+
+        async with aio_open(os.path.join(dir_path, 'activity.html'), 'w', encoding="utf-8") as newfile:
+            await newfile.write(templateh)
+
     await screenshot(dir_path)
     wininfo = getopenwindows()
     textonscr = await gettext(os.path.join(dir_path, 'capture.png'))
@@ -122,6 +130,9 @@ async def capturescr():
     )
     async with aio_open(os.path.join(dir_path, 'activity.html'), 'w', encoding="utf-8") as newfile:
         await newfile.write(templateh)
+
+    if os.path.exists(os.path.join(dir_path, ".lock")):
+        os.remove(os.path.join(dir_path, ".lock"))
 
 async def main():
     async def run_capturescr():
