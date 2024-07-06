@@ -9,17 +9,24 @@
     }
 }
 
+:root {
+    background: black;
+    background-image: url("capture.png");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 html, body {
     margin: 0;
     min-height: 100vh;
 }
 
 body {
-    color: #F0F0F0;
+    color: #cdd6f4;
     display: flex;
     justify-content: left;
     align-items: start;
-    background-color: rgba(32, 32, 32, 0.7);
+    background-color: rgba(30, 30, 46, 0.7);
     backdrop-filter: blur(20px);
 }
 
@@ -36,6 +43,7 @@ h1 {
     font-weight: 700;
     font-style: normal;
     font-size: 40px;
+    color: #b4befe;
 }
 
 h2 {
@@ -75,23 +83,26 @@ img.capture {
 }
 
 div.windows {
-    background: #2C2C2C;
+    background: #313244;
     border-radius: 15px;
     margin-top: 20px;
     margin-bottom: 30px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
 }
 
-p.windows {
+.windows h3 {
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.windows p {
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
     font-size: 15px;
     overflow: hidden;
+    margin: 0;
 }
 
 div.backContainer {
@@ -99,7 +110,7 @@ div.backContainer {
 }
 
 div.back {
-    background: #414141;
+    background: #313244;
     padding-left: 15px;
     padding-right: 15px;
     max-width: fit-content;
@@ -109,6 +120,7 @@ div.back {
     align-items: center;
     border-radius: 17.5px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+    border: 1px solid #555555;
 }
 
 p.back  {
