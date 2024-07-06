@@ -1,4 +1,4 @@
-# Orbi
+# Orbi - Catppuccin Test
 [![nikolan123 - Orbi](https://img.shields.io/static/v1?label=nikolan123&message=Orbi&color=blue&logo=github)](https://github.com/nikolan123/Orbi)
 [![stars - Orbi](https://img.shields.io/github/stars/nikolan123/Orbi?style=social)](https://github.com/nikolan123/Orbi)
 [![forks - Orbi](https://img.shields.io/github/forks/nikolan123/Orbi?style=social)](https://github.com/nikolan123/Orbi)
