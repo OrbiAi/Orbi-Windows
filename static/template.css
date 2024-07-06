@@ -9,6 +9,13 @@
     }
 }
 
+:root {
+    background: black;
+    background-image: url("capture.png");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 html, body {
     margin: 0;
     min-height: 100vh;
@@ -79,19 +86,22 @@ div.windows {
     border-radius: 15px;
     margin-top: 20px;
     margin-bottom: 30px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
 }
 
-p.windows {
+.windows h3 {
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.windows p {
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
     font-size: 15px;
     overflow: hidden;
+    margin: 0;
 }
 
 div.backContainer {
