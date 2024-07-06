@@ -41,6 +41,7 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 ## Credits
 - [RestartB](https://github.com/RestartB) for doing the frontend <3
 - [Google Material Design Icons](https://github.com/google/material-design-icons) - licenced under [Apache 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE)
+- [Catppuccin Colour Scheme](https://catppuccin.com/)
 ## License
 Released under [GPLv3](/LICENSE) by [@nikolan123](https://github.com/nikolan123).
 
