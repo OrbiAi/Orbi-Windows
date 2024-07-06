@@ -79,7 +79,7 @@ def index():
 
     for folder in folders:
         if not(os.path.exists(os.path.join(DATA_DIR, folder, '.lock'))):
-            unlockedFolders.append(os.path.join(DATA_DIR, folder))
+            unlockedFolders.append(folder)
             activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
             try:
                 with open(activity_path, 'r') as file:
@@ -134,7 +134,7 @@ def search():
 
     for folder in folders:
         if not(os.path.exists(os.path.join(DATA_DIR, folder, '.lock'))):
-            unlockedFolders.append(os.path.join(DATA_DIR, folder))
+            unlockedFolders.append(folder)
             activity_path = os.path.join(DATA_DIR, folder, 'activity.json')
             try:
                 with open(activity_path, 'r') as file:
