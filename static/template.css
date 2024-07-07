@@ -105,11 +105,11 @@ div.windows {
     margin: 0;
 }
 
-div.backContainer {
-    margin-right: 30px;
+div.topButtonContainer {
+    margin-right: 15px;
 }
 
-div.back {
+div.topButton {
     background: #313244;
     padding-left: 15px;
     padding-right: 15px;
@@ -123,7 +123,7 @@ div.back {
     border: 1px solid #555555;
 }
 
-p.back  {
+p.topButton  {
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -131,7 +131,7 @@ p.back  {
     font-size: 15px;
 }
 
-img.back {
+img.topButton {
     margin-right: 5px;
 }
 
