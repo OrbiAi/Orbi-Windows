@@ -4,14 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-humanize = "*"
-keyboard = "*"
-pillow = "*"
-pywin32 = "*"
-pytesseract = "*"
-aiohttp = "*"
-aiofiles = "*"
+flask = "3.0.3"
+humanize = "4.10.0"
+keyboard = "0.13.5"
+pillow = "10.4.0"
+pywin32 = "306"
+pytesseract = "0.3.13"
+aiohttp = "3.10.5"
+aiofiles = "24.1.0"
 
 [dev-packages]
 
