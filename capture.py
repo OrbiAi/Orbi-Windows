@@ -1,6 +1,6 @@
 import asyncio
 from PIL import ImageGrab, Image
-from win32gui import GetWindowText, GetForegroundWindow # pywin32 # type: ignore
+from win32gui import GetWindowText, GetForegroundWindow # pywin32 # type: ignore # pylint: disable=no-name-in-module
 import win32gui # type: ignore
 import pytesseract
 import datetime
