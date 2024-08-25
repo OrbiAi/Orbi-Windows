@@ -14,6 +14,7 @@ All the data is stored in the `data` directory.
 > By using Orbi, you agree to comply with all applicable laws. Your use of the software is at your own risk. We do not warrant it will be error-free or free from harmful components.
 >
 > We are not affiliated with Microsoft. Orbi is licensed under GPLv3. By downloading, installing, or using the software, you acknowledge that you have read, understood, and agree to this disclaimer.
+
 ## How it works
 The script takes a screenshot of the computer's screen every 60 seconds, processes the text on screen, gets a list of running apps and supplies all of that information to the `llama3` model.
 #### Workflow:
@@ -26,6 +27,7 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Saves AI response and running programs list to `data/timestamp/activity.json`.
 - Generates HTML from the JSON and saves it to `data/timestamp/activity.html`.
 - Repeats this every 60 seconds
+
 ## Setup
 ### Prerequisites:
 - Windows 11 (This has been tested with only Windows 11. It should work on 10, however I cannot confirm that.)
@@ -38,10 +40,12 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Install the required libraries with `pip install pywin32 pillow flask pytesseract humanize aiohttp aiofiles keyboard`
 - Run `main.py` and go to http://localhost:1212 to configure it
 - Restart `main.py` (the web server) and run `capture.py` (the ai thingy itself)
+
 ## Credits
 - [RestartB](https://github.com/RestartB) for doing the frontend <3
-- [Google Material Design Icons](https://github.com/google/material-design-icons) - licenced under [Apache 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE)
+- [Google Material Design Icons / Symbols](https://github.com/google/material-design-icons) - licenced under [Apache 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE)
 - [Catppuccin Colour Scheme](https://catppuccin.com/)
+
 ## License
 Released under [GPLv3](/LICENSE) by [@nikolan123](https://github.com/nikolan123).
 
