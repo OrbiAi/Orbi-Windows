@@ -12,6 +12,7 @@ pywin32 = "306"
 pytesseract = "0.3.13"
 aiohttp = "3.10.5"
 aiofiles = "24.1.0"
+pylint = "==3.2.6"
 
 [dev-packages]
 
