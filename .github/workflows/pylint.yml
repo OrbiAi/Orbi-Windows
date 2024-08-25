@@ -21,5 +21,4 @@ jobs:
         pipenv install
     - name: Analysing the code with pylint - errors only
       run: |
-        pipenv shell
-        pylint $(git ls-files '*.py') --errors-only
+        pipenv run pylint $(git ls-files '*.py') --errors-only
