@@ -8,13 +8,6 @@
         <style type="text/css">
             @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
-            :root {
-                background-color: black;
-                background-image: url("{{ img_folder }}/capture.png");
-                background-size: cover;
-                background-attachment: fixed;
-            }
-
             @keyframes itemFade {
                 0% {
                     opacity: 0;
@@ -30,12 +23,11 @@
             }
 
             body {
-                color: #F0F0F0;
+                color: #cdd6f4;
                 display: flex;
                 justify-content: left;
                 align-items: start;
-                background-color: rgba(32, 32, 32, 0.7);
-                backdrop-filter: blur(20px);
+                background-color: rgb(30, 30, 46);
             }
 
             main {
@@ -51,6 +43,7 @@
                 font-weight: 700;
                 font-style: normal;
                 font-size: 40px;
+                color: #b4befe;
             }
 
             h2 {
@@ -91,6 +84,7 @@
             .backButton {
                 width: 40px;
                 height: 40px;
+                background: #313244;
                 border: 1px solid #555555;
                 display: flex;
                 justify-content: center;
@@ -103,7 +97,7 @@
             .searchBar {
                 max-width: 340px;
                 height: 40px;
-                background: #1E1E1E;
+                background: #313244;
                 border-radius: 20px;
                 display: flex;
                 justify-content: left;
@@ -119,14 +113,14 @@
                 margin-left: 20px;
                 font-weight: 700;
                 font-size: 15px;
-                color: #F0F0F0;
+                color: #cdd6f4;
                 background: transparent;
                 border: 0;
                 outline: none;
             }
 
             ::placeholder {
-                color: #555555;
+                color: #a6adc8;
             }
             
             button {
@@ -159,7 +153,7 @@
                 justify-content: left;
                 align-items: center;
                 margin-bottom: 30px;
-                background: #2C2C2C;
+                background: #313244;
                 border: 1px solid #555555;
                 border-radius: 15px;
                 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;

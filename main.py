@@ -1,14 +1,16 @@
-from flask import Flask, render_template, send_from_directory, abort, jsonify, request, redirect, url_for, flash
-import os
-import time
-import threading
-import webbrowser
 import json
-from datetime import datetime, timezone, timedelta
+import os
 import random
-import keyboard
-from humanize import naturalsize
+import shutil
+import threading
+import time
+import webbrowser
+from datetime import datetime, timezone
 from glob import glob
+
+import keyboard
+from flask import Flask, render_template, send_from_directory, abort, request, redirect, url_for, flash
+from humanize import naturalsize
 
 app = Flask(__name__)
 app.secret_key = 'sandcar'
@@ -175,6 +177,19 @@ def folder():
     os.startfile(os.path.normpath("data"))
     return redirect("/")
 
+@app.route('/delete', methods=['GET'])
+def delete():
+    target = request.args.get('target', '')
+
+    if not target:
+        return redirect(url_for('index'))
+    
+    if os.path.exists(os.path.join(DATA_DIR, target)):
+        shutil.rmtree(os.path.join(DATA_DIR, target))
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index'))
+
 @app.route('/<folder>/<filename>')
 def serve_file(folder, filename):
     folder_path = os.path.join(DATA_DIR, folder)
@@ -234,4 +249,4 @@ def setupend():
     return render_template('setup.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=str(SERVER_PORT))
+    app.run(debug=False, port=str(SERVER_PORT))

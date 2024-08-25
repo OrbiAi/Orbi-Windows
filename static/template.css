@@ -22,11 +22,11 @@ html, body {
 }
 
 body {
-    color: #F0F0F0;
+    color: #cdd6f4;
     display: flex;
     justify-content: left;
     align-items: start;
-    background-color: rgba(32, 32, 32, 0.7);
+    background-color: rgba(30, 30, 46, 0.7);
     backdrop-filter: blur(20px);
 }
 
@@ -43,6 +43,7 @@ h1 {
     font-weight: 700;
     font-style: normal;
     font-size: 40px;
+    color: #b4befe;
 }
 
 h2 {
@@ -82,7 +83,7 @@ img.capture {
 }
 
 div.windows {
-    background: #2C2C2C;
+    background: #313244;
     border-radius: 15px;
     margin-top: 20px;
     margin-bottom: 30px;
@@ -104,12 +105,12 @@ div.windows {
     margin: 0;
 }
 
-div.backContainer {
-    margin-right: 30px;
+div.topButtonContainer {
+    margin-right: 15px;
 }
 
-div.back {
-    background: #414141;
+div.topButton {
+    background: #313244;
     padding-left: 15px;
     padding-right: 15px;
     max-width: fit-content;
@@ -119,9 +120,10 @@ div.back {
     align-items: center;
     border-radius: 17.5px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+    border: 1px solid #555555;
 }
 
-p.back  {
+p.topButton  {
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -129,7 +131,7 @@ p.back  {
     font-size: 15px;
 }
 
-img.back {
+img.topButton {
     margin-right: 5px;
 }
 

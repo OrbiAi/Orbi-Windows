@@ -127,6 +127,7 @@ async def capturescr():
         .replace("{{ allwindows }}", str(activity['open']))
         .replace("{{ took }}", str(activity['took']))
         .replace("{{ img }}", str('capture.png'))
+        .replace("{{ id }}", str(int(timenow)))
     )
     async with aio_open(os.path.join(dir_path, 'activity.html'), 'w', encoding="utf-8") as newfile:
         await newfile.write(templateh)
