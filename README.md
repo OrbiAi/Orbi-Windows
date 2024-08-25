@@ -33,13 +33,15 @@ The script takes a screenshot of the computer's screen every 60 seconds, process
 - Windows 11 (This has been tested with only Windows 11. It should work on 10, however I cannot confirm that.)
 - Python 3.11 (This has been tested with only Python 3.11.9. It should work on 3.12, however I cannot confirm that.)
 - A decent computer (It runs fine on my PC's RX 7600, but it will struggle on lower-end hardware.)
-### Setup:
+### AI Install:
 - Install Ollama (Download from https://ollama.com/ and run `ollama pull llama3:8b`. Make sure the server is running)
 - Download and install [this thingy](https://github.com/UB-Mannheim/tesseract/releases/download/v5.4.0.20240606/tesseract-ocr-w64-setup-5.4.0.20240606.exe)
-- Make a venv (`python -m venv venv`, activate with `venv\Scripts\activate`) (optional but recommended)
-- Install the required libraries with `pip install pywin32 pillow flask pytesseract humanize aiohttp aiofiles keyboard`
-- Run `main.py` and go to http://localhost:1212 to configure it
-- Restart `main.py` (the web server) and run `capture.py` (the ai thingy itself)
+### Setup:
+1. Run `pip install pipenv --user` to install pipenv
+2. Open a terminal inside Orbi's root directory
+3. Run `pipenv install` to install all required packages
+4. Run `pipenv run python main.py` to start the Orbi web server
+5. Run `pipenv run python capture.py` to start the capture script
 
 ## Credits
 - [RestartB](https://github.com/RestartB) for doing the frontend <3
