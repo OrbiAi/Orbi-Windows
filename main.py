@@ -12,6 +12,9 @@ import keyboard
 from flask import Flask, render_template, send_from_directory, abort, request, redirect, url_for, flash
 from humanize import naturalsize
 
+print("Orbi Frontend Server")
+print("https://github.com/OrbiAi/Orbi-Windows\n")
+
 app = Flask(__name__)
 app.secret_key = 'sandcar'
 

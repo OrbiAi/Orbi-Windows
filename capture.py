@@ -11,6 +11,9 @@ import json
 import re
 from aiofiles import open as aio_open
 
+print("Orbi Capture")
+print("https://github.com/OrbiAi/Orbi-Windows\n")
+
 DATA_DIR = 'data'
 
 if os.path.exists(os.path.join(DATA_DIR, "config.json")):
